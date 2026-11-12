@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { GoogleGenAI } from '@google/genai';
 
 export const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-export const MODEL_NAME = 'gemini-3.5-flash';
+export const MODEL_NAME = 'gemini-3.1-flash-lite';
 const EMBEDDING_MODEL = 'gemini-embedding-001';
 const EMBEDDING_DIMENSIONS = 768; // must match vector(768) in schema.prisma
 
