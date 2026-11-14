@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { authenticateToken } from '../middleware/auth.js';
 import { getSubjects, createSubject, deleteSubject } from '../controllers/subjectController.js';
-import { createSession, endSession } from '../controllers/sessionController.js';
+import { createSession, deleteSession, endSession } from '../controllers/sessionController.js';
 import { handleQuery } from '../controllers/queryController.js';
 import { getSessions, getSession } from '../controllers/sessionController.js';
 const router = Router();
@@ -18,7 +18,7 @@ router.post('/subjects/:subjectId/sessions', createSession);
 router.get('/sessions/:sessionId', getSession);
 router.post('/sessions/:sessionId/end', endSession);
 router.get('/subjects/:subjectId/sessions', getSessions);
-
+router.delete('/subjects/sessions/:sessionId', deleteSession);
 // RAG Query Endpoint
 router.post('/query', handleQuery);
 

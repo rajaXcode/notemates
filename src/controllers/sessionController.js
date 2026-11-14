@@ -80,3 +80,26 @@ export async function endSession(req, res) {
 
     res.json({ success: true, message: 'Session ending; notes are being finalized and embedded' });
 }
+
+export async function deleteSession(req, res) {
+    const { sessionId } = req.params;
+    console.log(req.user.id);
+    const session = await validateSessionAccess(req.user.id, sessionId);
+
+    if (!session) {
+        return res.status(404).json({ error: 'Session not found or unauthorized' });
+    }
+
+    try {
+        await prisma.lectureSession.delete({
+            where: {
+                id: sessionId,
+            },
+        });
+
+        return res.status(200).json({ message: 'Session deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting session:', err);
+        return res.status(500).json({ error: 'Failed to delete session' });
+    }
+}
